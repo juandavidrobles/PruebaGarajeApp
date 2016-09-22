@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ElGarajeApp</string>
+    <string name="Mi_Perfil">Mi Perfil</string>
+    <string name="principal">Principal</string>
+    <string name="User">Usuario</string>
+    <string name="Password">Contraseña</string>
+    <string name="PasswordAgain">Repetir contraseña</string>
+    <string name="email">Correo Electronico</string>
+
+
+    <string name="thai">Deliciosa carne de res, queso, sabrosos trozos de piñas marinados en salsa teriyaki, mezclada con salsa especial de la casa, lechuga  y tomate.</string>
+
+    <string name="veggie">Exaltando el sabor de la arveja en un delicioso puré apanado, acompañado de unos tersos champiñones Portobello y el infaltable manjar oriental: el tofu; tomante y lechuga crespa.</string>
+
+    <string name="verona">Deliciosa carne de res, doble jamón ahumado, galleta de queso parmesano, tomates asados en especias, queso doble crema, lechuga crespa y salsa.</string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
