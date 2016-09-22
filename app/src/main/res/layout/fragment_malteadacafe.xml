@@ -24,4 +24,13 @@
         android:src="@drawable/malteadacafe"
         android:layout_gravity="top"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deliciosa malteada con helado de café."
+        android:textSize="20sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:textColor="@color/white"/>
+
 </LinearLayout>

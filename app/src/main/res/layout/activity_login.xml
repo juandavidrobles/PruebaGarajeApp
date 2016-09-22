@@ -23,6 +23,7 @@
         android:hint="@string/User"
         android:textColorHint="@color/black"
         android:gravity="center"
+        android:singleLine="true"
         android:id="@+id/eUser"/>
 
     <EditText
@@ -32,6 +33,7 @@
         android:textColorHint="@color/black"
         android:gravity="center"
         android:inputType="textPassword"
+        android:singleLine="true"
         android:id="@+id/ePassword"/>
 
     <LinearLayout

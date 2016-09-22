@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void clickAceptar(View view){
         if (User.equals("") || Password.equals("")){
-            Toast.makeText(getBaseContext(),"Usuario o contraseña incorrectos",Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),"Usuario o contraseña incorrectos",Toast.LENGTH_SHORT).show();
         } else {
             if (User.equals(eUser.getText().toString()) && Password.equals(ePassword.getText().toString())){
                 Intent intent=new Intent(getApplicationContext(),MainActivity.class);
