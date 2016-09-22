@@ -2,9 +2,9 @@ package com.example.jrobles.pruebagarajeapp;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,16 +12,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ClasificacionActivity extends AppCompatActivity {
+public class Clasificacion2Activity extends AppCompatActivity {
 
-    private ViewPager mViewPager;
+    private ViewPager mViewPager2;
 
     String User, Email, Password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clasificacion);
+        setContentView(R.layout.activity_clasificacion2);
 
         Bundle extras=getIntent().getExtras();
         User=extras.getString("User");
@@ -29,8 +29,8 @@ public class ClasificacionActivity extends AppCompatActivity {
         Password=extras.getString("Password");
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(pagerAdapter);
+        mViewPager2 = (ViewPager) findViewById(R.id.pager);
+        mViewPager2.setAdapter(pagerAdapter);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -39,7 +39,7 @@ public class ClasificacionActivity extends AppCompatActivity {
 
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                mViewPager2.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -53,16 +53,16 @@ public class ClasificacionActivity extends AppCompatActivity {
             }
         };
 
-        ActionBar.Tab tab = actionBar.newTab().setText("Thai").setTabListener(tabListener);
+        ActionBar.Tab tab = actionBar.newTab().setText("Capuccino").setTabListener(tabListener);
         actionBar.addTab(tab);
 
-        tab = actionBar.newTab().setText("Veggie").setTabListener(tabListener);
+        tab = actionBar.newTab().setText("Malteada de café").setTabListener(tabListener);
         actionBar.addTab(tab);
 
-        tab = actionBar.newTab().setText("Verona").setTabListener(tabListener);
+        tab = actionBar.newTab().setText("Malteada de Oreo").setTabListener(tabListener);
         actionBar.addTab(tab);
 
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        mViewPager2.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             public void onPageSelected(int position){
                 getSupportActionBar().setSelectedNavigationItem(position);
             }
@@ -70,7 +70,7 @@ public class ClasificacionActivity extends AppCompatActivity {
 
     }
 
-    public class PagerAdapter extends FragmentPagerAdapter{
+    public class PagerAdapter extends FragmentPagerAdapter {
 
         public PagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
@@ -79,9 +79,9 @@ public class ClasificacionActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0: return new ThaiFragment();
-                case 1: return new VeggieFragment();
-                case 2: return new VeronaFragment();
+                case 0: return new CapuccinoFragment();
+                case 1: return new MalteadacafeFragment();
+                case 2: return new MalteadaoreoFragment();
                 default: return null;
             }
 
@@ -121,8 +121,8 @@ public class ClasificacionActivity extends AppCompatActivity {
                 startActivity(intent2);
                 finish();
                 break;
-            case R.id.mClasificacion2:
-                Intent intent3=new Intent(this,Clasificacion2Activity.class);
+            case R.id.mClasificacion:
+                Intent intent3=new Intent(this,ClasificacionActivity.class);
                 intent3.putExtra("User",User);
                 intent3.putExtra("Email",Email);
                 intent3.putExtra("Password",Password);
@@ -141,4 +141,7 @@ public class ClasificacionActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
+

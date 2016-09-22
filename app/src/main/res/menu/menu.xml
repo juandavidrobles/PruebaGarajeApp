@@ -11,6 +11,15 @@
 
     <item
         android:id="@+id/mClasificacion"
-        android:title="Clasificacion"></item>
+        android:title="@string/clasificacion1"></item>
+
+
+    <item
+        android:id="@+id/mClasificacion2"
+        android:title="@string/clasificacion2"></item>
+
+    <item
+        android:id="@+id/mSignout"
+        android:title="@string/signout"></item>
 
 </menu>

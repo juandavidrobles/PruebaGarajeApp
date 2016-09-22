@@ -14,13 +14,21 @@ public class LoginActivity extends AppCompatActivity {
 
     Button bRegistrarse, bAceptar;
     EditText eUser, ePassword;
-    String User="", Password="", Email;
+    String User, Password, Email;
     Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Bundle extras=getIntent().getExtras();
+
+        if (extras != null){
+            User=extras.getString("User");
+            Password=extras.getString("Password");
+            Email=extras.getString("Email");
+        }
 
         eUser=(EditText) findViewById(R.id.eUser);
         ePassword=(EditText) findViewById(R.id.ePassword);
@@ -49,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             if (User.equals(eUser.getText().toString()) && Password.equals(ePassword.getText().toString())){
                 Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                 intent.putExtra("User",User);
+                intent.putExtra("Password",Password);
                 intent.putExtra("Email", Email);
                 startActivity(intent);
                 finish();
