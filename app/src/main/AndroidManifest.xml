@@ -17,10 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"  />
         <activity android:name=".MiPerfilActivity" />
         <activity android:name=".ClasificacionActivity" />
         <activity android:name=".Clasificacion2Activity" />
+        <activity android:name=".PromocionActivity"/>
+        <activity android:name=".PromocionesActivity"></activity>
     </application>
 
 </manifest>

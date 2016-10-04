@@ -10,6 +10,16 @@
     <string name="email">Correo Electronico</string>
     <string name="signout">Cerrar sesión</string>
 
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+
+    <string name="Abierto">Open Navigation Drawer</string>
+    <string name="cerrado">Close Navigation Drawer</string>
+
 
     <string name="thai">Deliciosa carne de res, queso, sabrosos trozos de piñas marinados en salsa teriyaki, mezclada con salsa especial de la casa, lechuga  y tomate.</string>
 

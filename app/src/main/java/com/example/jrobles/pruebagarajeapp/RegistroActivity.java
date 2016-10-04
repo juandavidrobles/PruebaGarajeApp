@@ -1,6 +1,7 @@
 package com.example.jrobles.pruebagarajeapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,6 +31,16 @@ public class RegistroActivity extends AppCompatActivity {
 
     }
 
+    public void GuardarPreferencias(){
+        SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("User", eUser.getText().toString());
+        editor.putString("Password", ePassword.getText().toString());
+        editor.putString("Email", eEmail.getText().toString());
+        editor.commit();
+    }
+
+
     public void clickAceptar(View view){
 
         vacio=TextUtils.isEmpty(eUser.getText().toString()) ||
@@ -51,6 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
         if (vacio==false){
             if (ePassword.getText().toString().equals(ePasswordAgain.getText().toString())){
+                GuardarPreferencias();
                 Intent intent=new Intent();
                 intent.putExtra("User",eUser.getText().toString());
                 intent.putExtra("Password",ePassword.getText().toString());
