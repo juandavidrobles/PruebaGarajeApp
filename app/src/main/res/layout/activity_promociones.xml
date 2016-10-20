@@ -13,4 +13,6 @@
     android:background="@color/black"
     tools:context="com.example.jrobles.pruebagarajeapp.PromocionesActivity">
 
+
+
 </LinearLayout>

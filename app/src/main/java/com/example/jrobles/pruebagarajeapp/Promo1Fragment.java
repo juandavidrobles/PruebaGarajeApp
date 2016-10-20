@@ -6,12 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Promo1Fragment extends Fragment {
+public class Promo1Fragment extends Fragment  {
+
 
 
     public Promo1Fragment() {
@@ -24,6 +26,11 @@ public class Promo1Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_promo1, container, false);
+
+
+
     }
+
+
 
 }

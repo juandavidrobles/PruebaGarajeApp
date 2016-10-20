@@ -18,4 +18,5 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:id="@+id/tNameListView"/>
 
+
 </LinearLayout>

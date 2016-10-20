@@ -2,6 +2,7 @@ package com.example.jrobles.pruebagarajeapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -214,7 +215,8 @@ public class ClasificacionActivity extends AppCompatActivity {
                 finish();
                 break;*/
             case R.id.mSignout:
-                SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+                //SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+                SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 editor.putString("Auto", "Off");
                 editor.commit();

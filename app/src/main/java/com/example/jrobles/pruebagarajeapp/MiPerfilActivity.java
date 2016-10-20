@@ -1,10 +1,15 @@
 package com.example.jrobles.pruebagarajeapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,8 +25,29 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MiPerfilActivity extends AppCompatActivity {
+
+    //---------Implementacion SQLite------------
+    FavoritosSQLiteHelper favoritos;
+    SQLiteDatabase dbFavoritos;
+
+    UserDataSQLiteHelper userdata;
+    SQLiteDatabase dbUserData;
+
+    ContentValues dataBD;
+
+    String usuario, correo;
+
+    int idUsuario;
+    //------------------------------------------
+
+    PerfilFragment perfilFragment;
+
+    FavoritosFragment favoritosFragment;
+
+    private ViewPager mViewPager;
 
     TextView tName, tMail;
     String User, Email, Password;
@@ -38,6 +64,64 @@ public class MiPerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_perfil);
 
+        //---------Implementacion SQLite------------
+        userdata = new UserDataSQLiteHelper(this, "UserData", null, 1);
+        dbUserData = userdata.getWritableDatabase();
+
+        favoritos = new FavoritosSQLiteHelper(this, "Favoritos", null, 1);
+        dbFavoritos = favoritos.getWritableDatabase();
+        //------------------------------------------
+
+        usuario=CargarPreferencias();
+
+        Cursor c = dbUserData.rawQuery("SELECT * FROM UserData WHERE nombre='"+usuario+"'", null);
+
+        if (c.moveToFirst()){
+            idUsuario=c.getInt(0);
+            correo=c.getString(3);
+        }
+
+
+
+
+
+        MiPerfilActivity.PagerAdapter pagerAdapter = new MiPerfilActivity.PagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pagerMiPerfil);
+        mViewPager.setAdapter(pagerAdapter);
+
+        ActionBar actionBar2 = getSupportActionBar();
+        actionBar2.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        ActionBar.TabListener tabListener = new ActionBar.TabListener(){
+
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+            }
+        };
+
+        ActionBar.Tab tab = actionBar2.newTab().setText(R.string.Mi_Perfil).setTabListener(tabListener);
+        actionBar2.addTab(tab);
+
+        tab = actionBar2.newTab().setText("Favoritos").setTabListener(tabListener);
+        actionBar2.addTab(tab);
+
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            public void onPageSelected(int position){
+                getSupportActionBar().setSelectedNavigationItem(position);
+            }
+        });
+
         //-------------Icono menu action bar--------------
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -46,8 +130,8 @@ public class MiPerfilActivity extends AppCompatActivity {
         }
         //------------------------------------------------
 
-        tName=(TextView) findViewById(R.id.tName);
-        tMail=(TextView) findViewById(R.id.tMail);
+        //tName=(TextView) findViewById(R.id.tName);
+        //tMail=(TextView) findViewById(R.id.tMail);
 
         /*Bundle extras=getIntent().getExtras();
 
@@ -55,8 +139,8 @@ public class MiPerfilActivity extends AppCompatActivity {
         Email=extras.getString("Email");
         Password=extras.getString("Password");*/
 
-        tName.setText(getUser());
-        tMail.setText(getEmail());
+        //tName.setText(getUser());
+        //tMail.setText(getEmail());
 
         //----------------------------------Ajuste del menu--------------------------------
         drawerLayout = (DrawerLayout) findViewById(R.id.contenedorPrincipalMiPerfil);
@@ -120,13 +204,24 @@ public class MiPerfilActivity extends AppCompatActivity {
 
     }
 
+    public String CargarPreferencias(){
+        String s;
+        //SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        s=sharedPreferences.getString("User","");
+        return s;
+
+    }
+
     public String getUser(){
-        SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+        //SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+        SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getString("User","");
     }
 
     public String getEmail(){
-        SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+        //SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+        SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getString("Email","");
     }
 
@@ -135,7 +230,8 @@ public class MiPerfilActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.mSignout:
-                SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+                //SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+                SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 editor.putString("Auto", "Off");
                 editor.commit();
@@ -164,6 +260,33 @@ public class MiPerfilActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    public class PagerAdapter extends FragmentPagerAdapter {
+
+        public PagerAdapter(android.support.v4.app.FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    PerfilFragment perfilFragment = new PerfilFragment();
+                    /*perfilFragment.setTextUser(usuario);
+                    perfilFragment.setTextEmail(correo);*/
+                    /*Toast.makeText(getBaseContext(), usuario, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), correo, Toast.LENGTH_LONG).show();*/
+                    return perfilFragment;
+                case 1: return new FavoritosFragment();
+                default: return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 
     /*@Override

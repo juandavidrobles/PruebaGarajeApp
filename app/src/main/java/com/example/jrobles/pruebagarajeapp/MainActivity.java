@@ -1,7 +1,11 @@
 package com.example.jrobles.pruebagarajeapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,10 +17,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    //---------Implementacion SQLite------------
+    ProductsListSQLiteHelper productslist;
+    SQLiteDatabase dbProductsList;
+
+    ContentValues dataBD;
+
+    String usuario, descripcion;
+    int precio;
+    //------------------------------------------
 
     //------Variables de menu Navigation Drawer-----
     private String[] opciones = new String[]{"Principal", "Hamburguesas", "Bebidas", "Mi Perfil"};
@@ -24,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ActionBarDrawerToggle drawerToggle;
     //----------------------------------------------
+
+    int n=5;
+    String[] s1 = new String[n], s2 = new String[n];
+    int s3[] = new int[n];
+    int s4[] = new int[n];
+
+
 
     String User, Email, Password;
 
@@ -39,9 +61,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListaPersonalizada adapter=new ListaPersonalizada(this, listaPromociones, imgid);
+        //---------Implementacion SQLite------------
+        productslist = new ProductsListSQLiteHelper(this, "ProductsList", null, 1);
+        dbProductsList = productslist.getWritableDatabase();
+
+        Cursor cursor = dbProductsList.rawQuery("SELECT * FROM ProductsList ORDER BY id ASC LIMIT "+5, null);
+
+        int i=0;
+        //cursor.moveToFirst();
+        while (cursor.moveToNext()){
+            s1[i]=cursor.getString(1);
+            s2[i]=cursor.getString(2);
+            s3[i]=cursor.getInt(3);
+            s4[i]=cursor.getInt(4);
+            i++;
+        }
+        //------------------------------------------
+
+        ListaPersonalizada adapter=new ListaPersonalizada(this, s1, s4);
         list=(ListView)findViewById(R.id.lView2);
         list.setAdapter(adapter);
+
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -50,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
                 /*String Slecteditem= listaPromociones[+position];
-                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(getApplicationContext(), Selecteditem, Toast.LENGTH_SHORT).show();*/
                 Intent intent = null;
                 intent = new Intent(getBaseContext(), PromocionesActivity.class);
                 int n;
@@ -58,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         n=0;
                         intent.putExtra("Promo", n);
+
                         break;
                     case 1:
                         n=1;
@@ -77,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 startActivity(intent);
-                finish();
+                //finish();
 
             }
         });
@@ -150,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("Password","PasswordNada");
                     intent.putExtra("Email","CorreoNada");*/
                     startActivity(intent);
-                    finish();
+                    //finish();
                 }
 
 
@@ -205,7 +247,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 break;*/
             case R.id.mSignout:
-                SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+                //SharedPreferences sharedPreferences=getSharedPreferences("Mis Preferencias",MODE_PRIVATE);
+                SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 editor.putString("Auto", "Off");
                 editor.commit();
@@ -227,5 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

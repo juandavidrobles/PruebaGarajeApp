@@ -6,6 +6,18 @@
     tools:context="com.example.jrobles.pruebagarajeapp.Promo1Fragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <!--<CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Favorito"
+        android:textColor="@color/white"
+        android:shadowColor="@color/white"
+        android:textSize="20dp"
+        android:button="@drawable/check"
+        android:onClick="onClick"
+        android:id="@+id/chckFavoritoPromo1"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>-->
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

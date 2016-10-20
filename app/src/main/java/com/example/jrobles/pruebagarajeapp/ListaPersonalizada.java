@@ -16,9 +16,9 @@ public class ListaPersonalizada extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
-    private final Integer[] imgid;
+    private final int[] imgid;
 
-    public ListaPersonalizada(Activity context, String[] itemname, Integer[] imgid) {
+    public ListaPersonalizada(Activity context, String[] itemname, int[] imgid) {
         super(context, R.layout.list_promo, itemname);
         //TODO Auto-generated constructor stub
 
@@ -28,6 +28,7 @@ public class ListaPersonalizada extends ArrayAdapter<String> {
     }
 
     public View getView(int position, View view, ViewGroup parent) {
+
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.list_promo, null,true);
 
