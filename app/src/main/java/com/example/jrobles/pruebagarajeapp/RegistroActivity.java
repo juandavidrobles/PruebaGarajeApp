@@ -109,13 +109,13 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                             eUser.setError("Ya hay un registro con ese usuario");
                         } else {
                             dataBD = new ContentValues();
-                            dataBD.put("usuario", usuario);
+                            dataBD.put("nombre", usuario);
                             dataBD.put("contrasena", contrasena);
                             dataBD.put("correo", correo);
 
                             dbUserData.insert("UserData", null, dataBD);
-                            dbUserData.execSQL("INSERT INTO UserData VALUES(null, '"+usuario+"', '"+contrasena+"', " +
-                                    "'"+correo+"')");
+                            /*dbUserData.execSQL("INSERT INTO UserData VALUES(null, '"+usuario+"', '"+contrasena+"', " +
+                                    "'"+correo+"')");*/
                             //------------------------------------------
 
                             GuardarPreferencias();

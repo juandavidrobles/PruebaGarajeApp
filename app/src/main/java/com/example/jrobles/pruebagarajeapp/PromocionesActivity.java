@@ -73,23 +73,23 @@ public class PromocionesActivity extends AppCompatActivity {
         Fragment fragment=null;
         switch (extras.getInt("Promo")){
             case 0:
-                frag=0;
+                frag=1;
                 fragment=new Promo1Fragment();
                 break;
             case 1:
-                frag=1;
+                frag=2;
                 fragment=new Promo2Fragment();
                 break;
             case 2:
-                frag=2;
+                frag=3;
                 fragment=new Promo3Fragment();
                 break;
             case 3:
-                frag=3;
+                frag=4;
                 fragment=new Promo4Fragment();
                 break;
             case 4:
-                frag=4;
+                frag=5;
                 fragment=new Promo5Fragment();
                 break;
         }
@@ -124,10 +124,10 @@ public class PromocionesActivity extends AppCompatActivity {
                         cursor = dbFavoritos.rawQuery("SELECT * FROM Favoritos WHERE idusuario='"+idUsuario+"' AND idproducto='"+frag+"'", null);
 
                         if (cursor.moveToFirst()){
-                            Toast.makeText(getBaseContext(), "Borrado de favoritos", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Borrado de favoritos", Toast.LENGTH_SHORT).show();
                             dbFavoritos.delete("Favoritos","idusuario='"+idUsuario+"' AND idproducto='"+frag+"'",null);
                         } else {
-                            Toast.makeText(getBaseContext(), "Agregado a favoritos", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Agregado a favoritos", Toast.LENGTH_SHORT).show();
                             dataBD = new ContentValues();
                             dataBD.put("idusuario", idUsuario);
                             dataBD.put("idproducto", frag);
